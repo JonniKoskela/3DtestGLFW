@@ -88,12 +88,10 @@ int main(void)
     GLFWwindow* window;
 
 
-    /* Initialize the library */
     if (!glfwInit())
         return -1;
 
 
-    /* Create a windowed mode window and its OpenGL context */
     window = glfwCreateWindow(1000,800, "Hello World", NULL, NULL);
     if (!window)
     {
@@ -102,7 +100,6 @@ int main(void)
     }
 
 
-    /* Make the window's context current */
     glfwMakeContextCurrent(window);
 /*    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);*/
 
@@ -130,18 +127,9 @@ int main(void)
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 
-    // bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-
-
-
     glGenBuffers(1, &colorbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
-    // remember: do NOT unbind the EBO while a VAO is active as the bound element buffer object IS stored in the VAO; keep the EBO bound.
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-    // You can unbind the VAO afterwards so other VAO calls won't accidentally modify this VAO, but this rarely happens. Modifying other
-    // VAOs requires a call to glBindVertexArray anyways so we generally don't unbind VAOs (nor VBOs) when it's not directly necessary.
     glBindVertexArray(0);
 
     glEnable(GL_CULL_FACE);
@@ -264,9 +252,7 @@ int main(void)
 
 
 
-/*void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-    // make sure the viewport matches the new window dimensions; note that width and 
-    // height will be significantly larger than specified on retina displays.
     glViewport(0, 0, width, height);
-}*/
+}
